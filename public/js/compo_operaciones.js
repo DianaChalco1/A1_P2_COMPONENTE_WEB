@@ -1,24 +1,27 @@
+
+// Se crea un componente web de nombre "calculadora-basica"
 class CalculadoraBasica extends HTMLElement{
-// aqui vamos a manipular el DOM
-// creamos un constructor para la parte estetica.
+
+
+// se crea un constructor para la parte estetica.
 constructor(){
     super();
     this.attachShadow({ mode: 'open' });
-
+// Se crea un shadow DOM para encapsular el estilo y la estructura del componente
 this.shadowRoot.innerHTML = `
     <link rel="stylesheet" href="public/lib/bootstrap/css/bootstrap.min.css">
 
-<div class="container mt-2">
-  <div class="card p-4 shadow w-50 mx-auto">
-    <h3 class="text-center mb-4">Calculadora Básica</h3>
+    <div class="container mt-2">
+  <div class="card p-4 shadow w-50 mx-auto" style="background-color:rgb(153, 243, 184);">
+    <h3 class="text-center mb-4">🧮 Calculadora Básica</h3>
     
     <div class="mb-3">
-      <label for="Numero1" class="form-label">Ingrese el primer número</label>
+      <label for="Numero1" class="form-label">Ingrese primer número</label>
       <input type="number" class="form-control" id="Numero1">
     </div>
     
     <div class="mb-3">
-      <label for="Numero2" class="form-label">Ingrese el segundo número</label>
+      <label for="Numero2" class="form-label">Ingrese segundo número</label>
       <input type="number" class="form-control" id="Numero2">
     </div>
     
@@ -31,9 +34,9 @@ this.shadowRoot.innerHTML = `
         <option value="División">División</option>
       </select>
     </div>
-
+    
     <div class="mb-3 mx-auto">
-      <button id="Calculo" type="button" class="btn btn-primary">Calcular</button>
+      <button id="Calculo" type="button" class="btn btn-success">Calcular</button>
     </div>
         <div  id="Resultado" class="mb-3 text-center mx-auto"> Resultado: </div>
 
@@ -44,87 +47,82 @@ this.shadowRoot.innerHTML = `
 </div>
 
 `;
-
-
-
-
 }
 
-// creamos la lógica correspondiente
-// funcion para el llamado del boton 
-
+// se crea la lógica correspondiente
 connectedCallback (){
 this.shadowRoot
     .querySelector("#Calculo")
     .addEventListener("click", () => this.calculos());
 
-
 }
-
+// Se crea la función que realiza los cálculos
 calculos(){
-//obtenemos los datos ingresados con querySelector
+//se obtiene los datos ingresados con querySelector
 const numero1 = parseFloat(this.shadowRoot.querySelector("#Numero1").value);
 const numero2 = parseFloat(this.shadowRoot.querySelector("#Numero2").value);
 const operacion = this.shadowRoot.querySelector("#Operacion").value;
 const resultadoElem = this.shadowRoot.querySelector("#Resultado");
 const historial = this.shadowRoot.querySelector("#Historial");
-
-
-// Creamos la operación selecionada por el usuario suma, resta, multiplicación o división 
+// Se obtiene el elemento del historial
+// Se crea la operación selecionada por el usuario suma, resta, multiplicación o división
   let resultado;
-    //Realizamos la validación de campo vacío y número
+    //Se realiza la validación de campo vacío y número
       if (isNaN(numero1) || isNaN(numero2)) {
       resultadoElem.textContent = "Por favor ingresa solo números.";
       return;
     }
 
-  // Ejecutar la operación según el valor seleccionado
+  // Se ejecuta la operación según el valor seleccionado
   switch (operacion) {
+    // Se evalúa la operación seleccionada por el usuario
     case "Suma":
       resultado = numero1 + numero2;
       break;
+    // Se evalúa la operación seleccionada por el usuario
     case "Resta":
       resultado = numero1 - numero2;
       break;
+    // Se evalúa la operación seleccionada por el usuario
     case "Multiplicación":
       resultado = numero1 * numero2;
       break;
+    // Se evalúa la operación seleccionada por el usuario
     case "División":
       if (numero2 === 0) {
+    // Validación para evitar división por cero
         resultadoElem.textContent = "Lo sentimos, no se puede dividir entre cero.";
         return;
       }
+    // Se evalúa la operación seleccionada por el usuario
       resultado = numero1 / numero2;
       break;
     default:
+    // Refleja mensaje si no se selecciona una operación válida
       resultadoElem.textContent = "Por favor selecciona una operación disponible.";
       return;
   }
 
-  // Mostrar el resultado
+  // Muestra el resultado
   resultadoElem.textContent = `Resultado: ${resultado}`;
 
- // Creamos el evento que permite salir del shadow DOM
+ // Se crea el evento que permite salir del shadow DOM
   this.dispatchEvent(new CustomEvent("resultado-calculado", {
   detail: { resultado }, 
   bubbles: true,         
   composed: true        
 }));
 
-// Lógica para agregar los resultados a un historial (list)ç
-
+  // Lógica para agregar los resultados a un historial (list)
 const operItem = document.createElement("li");
-  operItem.textContent = `Oeracion del Historial----->Resultado = ${resultado}`;
-  operItem.classList.add("list-group-item");
-
+  operItem.textContent = `Historial de las operaciones----->Resultado = ${resultado}`;
+  operItem.classList.add("bg-info");
+  // Se agrega la clase de bootstrap para el estilo
    historial.appendChild(operItem);
 
 }
 
-
-
-
 }
- 
-
+// Se define el componente web "calculadora-basica"
+// Se registra el componente para que pueda ser utilizado en el HTML
 customElements.define("calculadora-basica",CalculadoraBasica);
