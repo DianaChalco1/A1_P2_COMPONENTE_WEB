@@ -45,7 +45,6 @@ this.shadowRoot.innerHTML = `
 
   </div>
 </div>
-
 `;
 }
 
