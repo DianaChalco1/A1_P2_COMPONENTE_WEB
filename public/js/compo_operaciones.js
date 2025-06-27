@@ -12,7 +12,7 @@ this.shadowRoot.innerHTML = `
     <link rel="stylesheet" href="public/lib/bootstrap/css/bootstrap.min.css">
 
     <div class="container mt-2">
-  <div class="card p-4 shadow w-50 mx-auto" style="background-color:rgb(153, 243, 184);">
+  <div class="card p-4 shadow w-50 mx-auto" style="background-color:rgb(160, 242, 204);">
     <h3 class="text-center mb-4">🧮 Calculadora Básica</h3>
     
     <div class="mb-3">
