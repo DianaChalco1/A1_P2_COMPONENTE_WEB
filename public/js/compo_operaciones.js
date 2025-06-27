@@ -68,7 +68,7 @@ const historial = this.shadowRoot.querySelector("#Historial");
   let resultado;
     //Se realiza la validación de campo vacío y número
       if (isNaN(numero1) || isNaN(numero2)) {
-      resultadoElem.textContent = "Por favor ingresa solo números.";
+      resultadoElem.textContent = "Ingrese solo números.";
       return;
     }
 
@@ -90,7 +90,7 @@ const historial = this.shadowRoot.querySelector("#Historial");
     case "División":
       if (numero2 === 0) {
     // Validación para evitar división por cero
-        resultadoElem.textContent = "Lo sentimos, no se puede dividir entre cero.";
+        resultadoElem.textContent = "Adevertencia! No se puede dividir entre cero.";
         return;
       }
     // Se evalúa la operación seleccionada por el usuario
@@ -98,7 +98,7 @@ const historial = this.shadowRoot.querySelector("#Historial");
       break;
     default:
     // Refleja mensaje si no se selecciona una operación válida
-      resultadoElem.textContent = "Por favor selecciona una operación disponible.";
+      resultadoElem.textContent = "Seleccione operación disponible.";
       return;
   }
 
